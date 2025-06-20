@@ -8,17 +8,48 @@ export default function Assistant() {
   const { chatMessages, addConversationItem, addChatMessage, setAssistantLoading } =
     useConversationStore();
 
-  const handleSendMessage = async (message: string) => {
-    if (!message.trim()) return;
+  const handleSendMessage = async (message: string, files?: any[]) => {
+    if (!message.trim() && (!files || files.length === 0)) return;
+
+    // Create content array that includes text and files
+    const content: any[] = [];
+    
+    if (message.trim()) {
+      content.push({ type: "input_text", text: message.trim() });
+    }
+    
+    // Add files to content if any
+    if (files && files.length > 0) {
+      files.forEach(file => {
+        if (file.type === 'image') {
+          // Handle images as base64 data URLs
+          content.push({
+            type: "input_image",
+            source: {
+              type: "base64",
+              media_type: file.mimeType,
+              data: file.data.split(',')[1], // Remove data:image/...;base64, prefix
+            },
+          });
+        } else if (file.type === 'file') {
+          // Handle regular files uploaded to OpenAI
+          content.push({
+            type: "input_file",
+            file_id: file.fileId,
+          });
+        }
+      });
+    }
 
     const userItem: Item = {
       type: "message",
       role: "user",
-      content: [{ type: "input_text", text: message.trim() }],
+      content,
     };
+    
     const userMessage: any = {
       role: "user",
-      content: message.trim(),
+      content,
     };
 
     try {

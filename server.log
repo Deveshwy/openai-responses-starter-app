@@ -1,0 +1,407 @@
+
+> responses-starter-app@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.2.3
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.119:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1521ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1420ms (1131 modules)
+ HEAD / 200 in 1709ms
+ ✓ Compiled in 179ms (535 modules)
+ GET / 200 in 42ms
+ ✓ Compiled /api/turn_response in 469ms (1260 modules)
+Received messages: [
+  {
+    role: 'developer',
+    content: '\n' +
+      'You are a Financial Co-Pilot, an intelligent assistant designed to help students navigate their financial education and make informed financial decisions.\n' +
+      '\n' +
+      'Your primary goal is to provide clear, accurate, and helpful financial guidance. You have access to several tools:\n' +
+      '\n' +
+      '1. **Web Search**: Use this to find current market data, recent financial news, or up-to-date information about financial products and regulations.\n' +
+      '\n' +
+      '2. **File Search**: Use this to search through the course materials and reference documents to provide accurate information from the curriculum.\n' +
+      '\n' +
+      '3. **Code Interpreter**: Use this for financial calculations, data analysis, creating visualizations, or any computational tasks related to finance.\n' +
+      '\n' +
+      'Guidelines:\n' +
+      '- Always be professional and educational in your responses\n' +
+      '- When discussing financial topics, provide context and explain concepts clearly\n' +
+      "- Use tools automatically based on the user's query - you don't need to ask permission\n" +
+      '- For calculations, always show your work and explain the methodology\n' +
+      '- When referencing course materials, cite the specific sections or pages if possible\n' +
+      '- If you need current market data or recent information, use web search\n' +
+      '- For complex financial calculations or analysis, use the code interpreter\n' +
+      '\n' +
+      "Remember: You're here to educate and assist, not to provide personalized investment advice. Always encourage users to consult with qualified financial advisors for personal financial decisions.\n"
+  },
+  { role: 'user', content: 'hui' }
+]
+Using default model for query: hui...
+ POST /api/turn_response 200 in 3708ms
+Received messages: [
+  {
+    role: 'developer',
+    content: '\n' +
+      'You are a Financial Co-Pilot, an intelligent assistant designed to help students navigate their financial education and make informed financial decisions.\n' +
+      '\n' +
+      'Your primary goal is to provide clear, accurate, and helpful financial guidance. You have access to several tools:\n' +
+      '\n' +
+      '1. **Web Search**: Use this to find current market data, recent financial news, or up-to-date information about financial products and regulations.\n' +
+      '\n' +
+      '2. **File Search**: Use this to search through the course materials and reference documents to provide accurate information from the curriculum.\n' +
+      '\n' +
+      '3. **Code Interpreter**: Use this for financial calculations, data analysis, creating visualizations, or any computational tasks related to finance.\n' +
+      '\n' +
+      'Guidelines:\n' +
+      '- Always be professional and educational in your responses\n' +
+      '- When discussing financial topics, provide context and explain concepts clearly\n' +
+      "- Use tools automatically based on the user's query - you don't need to ask permission\n" +
+      '- For calculations, always show your work and explain the methodology\n' +
+      '- When referencing course materials, cite the specific sections or pages if possible\n' +
+      '- If you need current market data or recent information, use web search\n' +
+      '- For complex financial calculations or analysis, use the code interpreter\n' +
+      '\n' +
+      "Remember: You're here to educate and assist, not to provide personalized investment advice. Always encourage users to consult with qualified financial advisors for personal financial decisions.\n"
+  },
+  { role: 'user', content: 'hui' },
+  { role: 'assistant', content: [ [Object] ] },
+  {
+    id: 'msg_6855dd559c5c81a3a19e00c8f041413508896d866fcaf452',
+    type: 'message',
+    status: 'completed',
+    content: [ [Object] ],
+    role: 'assistant'
+  },
+  {
+    role: 'user',
+    content: 'tell me about different debt payoff strategies'
+  }
+]
+Using default model for query: tell me about different debt payoff strategies...
+ POST /api/turn_response 200 in 17531ms
+ ✓ Compiled in 352ms (1118 modules)
+ ✓ Compiled in 217ms (1132 modules)
+ GET / 200 in 97ms
+ ✓ Compiled in 181ms (1132 modules)
+ GET / 200 in 61ms
+ ✓ Compiled /favicon.ico in 96ms (612 modules)
+ GET /favicon.ico 200 in 349ms
+ ✓ Compiled in 240ms (1148 modules)
+ GET / 200 in 46ms
+ GET /favicon.ico 200 in 211ms
+ ✓ Compiled in 306ms (1148 modules)
+ GET / 200 in 42ms
+ GET /favicon.ico 200 in 210ms
+ ✓ Compiled in 179ms (1148 modules)
+ GET / 200 in 35ms
+ GET /favicon.ico 200 in 214ms
+ ✓ Compiled in 175ms (1148 modules)
+ GET / 200 in 30ms
+ GET /favicon.ico 200 in 210ms
+ ✓ Compiled in 261ms (1152 modules)
+ GET / 200 in 31ms
+ GET /favicon.ico 200 in 210ms
+ ✓ Compiled /api/turn_response in 268ms (742 modules)
+Received messages: [
+  {
+    role: 'developer',
+    content: '\n' +
+      'You are a Financial Co-Pilot, an intelligent assistant designed to help students navigate their financial education and make informed financial decisions.\n' +
+      '\n' +
+      'Your primary goal is to provide clear, accurate, and helpful financial guidance. You have access to several tools:\n' +
+      '\n' +
+      '1. **Web Search**: Use this to find current market data, recent financial news, or up-to-date information about financial products and regulations.\n' +
+      '\n' +
+      '2. **File Search**: Use this to search through the course materials and reference documents to provide accurate information from the curriculum.\n' +
+      '\n' +
+      '3. **Code Interpreter**: Use this for financial calculations, data analysis, creating visualizations, or any computational tasks related to finance.\n' +
+      '\n' +
+      'Guidelines:\n' +
+      '- Always be professional and educational in your responses\n' +
+      '- When discussing financial topics, provide context and explain concepts clearly\n' +
+      "- Use tools automatically based on the user's query - you don't need to ask permission\n" +
+      '- For calculations, always show your work and explain the methodology\n' +
+      '- When referencing course materials, cite the specific sections or pages if possible\n' +
+      '- If you need current market data or recent information, use web search\n' +
+      '- For complex financial calculations or analysis, use the code interpreter\n' +
+      '\n' +
+      "Remember: You're here to educate and assist, not to provide personalized investment advice. Always encourage users to consult with qualified financial advisors for personal financial decisions.\n"
+  },
+  { role: 'user', content: 'describe this image' }
+]
+Using default model for query: describe this image...
+ GET / 200 in 33ms
+ GET /favicon.ico 200 in 211ms
+ POST /api/turn_response 200 in 2938ms
+Received messages: [
+  {
+    role: 'developer',
+    content: '\n' +
+      'You are a Financial Co-Pilot, an intelligent assistant designed to help students navigate their financial education and make informed financial decisions.\n' +
+      '\n' +
+      'Your primary goal is to provide clear, accurate, and helpful financial guidance. You have access to several tools:\n' +
+      '\n' +
+      '1. **Web Search**: Use this to find current market data, recent financial news, or up-to-date information about financial products and regulations.\n' +
+      '\n' +
+      '2. **File Search**: Use this to search through the course materials and reference documents to provide accurate information from the curriculum.\n' +
+      '\n' +
+      '3. **Code Interpreter**: Use this for financial calculations, data analysis, creating visualizations, or any computational tasks related to finance.\n' +
+      '\n' +
+      'Guidelines:\n' +
+      '- Always be professional and educational in your responses\n' +
+      '- When discussing financial topics, provide context and explain concepts clearly\n' +
+      "- Use tools automatically based on the user's query - you don't need to ask permission\n" +
+      '- For calculations, always show your work and explain the methodology\n' +
+      '- When referencing course materials, cite the specific sections or pages if possible\n' +
+      '- If you need current market data or recent information, use web search\n' +
+      '- For complex financial calculations or analysis, use the code interpreter\n' +
+      '\n' +
+      "Remember: You're here to educate and assist, not to provide personalized investment advice. Always encourage users to consult with qualified financial advisors for personal financial decisions.\n"
+  },
+  { role: 'user', content: 'describe this image' },
+  { role: 'assistant', content: [ [Object] ] },
+  {
+    id: 'msg_6855defb67e4819194598f037e8262d9031145c2c273e3a3',
+    type: 'message',
+    status: 'completed',
+    content: [ [Object] ],
+    role: 'assistant'
+  },
+  { role: 'user', content: 'explain this pdf' }
+]
+Using default model for query: explain this pdf...
+ POST /api/turn_response 200 in 2784ms
+ ✓ Compiled in 195ms (538 modules)
+ GET / 200 in 33ms
+ GET / 200 in 40ms
+ ✓ Compiled /favicon.ico in 323ms (1266 modules)
+ GET / 200 in 23ms
+ GET /favicon.ico 200 in 284ms
+ GET /favicon.ico 200 in 205ms
+ ✓ Compiled in 262ms (1280 modules)
+ GET / 200 in 26ms
+ GET /favicon.ico 200 in 211ms
+ ✓ Compiled in 224ms (1152 modules)
+ GET / 200 in 46ms
+ GET /favicon.ico 200 in 211ms
+ ✓ Compiled in 158ms (1152 modules)
+ GET / 200 in 29ms
+ GET /favicon.ico 200 in 208ms
+ ✓ Compiled in 268ms (1152 modules)
+ GET / 200 in 26ms
+ GET /favicon.ico 200 in 210ms
+ ✓ Compiled in 76ms (538 modules)
+ GET / 200 in 9ms
+ GET /favicon.ico 200 in 206ms
+ ✓ Compiled in 428ms (1152 modules)
+ GET / 200 in 27ms
+ GET /favicon.ico 200 in 212ms
+ ✓ Compiled in 171ms (1152 modules)
+ GET / 200 in 30ms
+ GET /favicon.ico 200 in 213ms
+ GET / 200 in 130ms
+ ✓ Compiled /api/upload-file in 435ms (1262 modules)
+ POST /api/upload-file 200 in 1826ms
+ ✓ Compiled /api/turn_response in 154ms (742 modules)
+Received messages: [
+  {
+    role: 'developer',
+    content: '\n' +
+      'You are a Financial Co-Pilot, an intelligent assistant designed to help students navigate their financial education and make informed financial decisions.\n' +
+      '\n' +
+      'Your primary goal is to provide clear, accurate, and helpful financial guidance. You have access to several tools:\n' +
+      '\n' +
+      '1. **Web Search**: Use this to find current market data, recent financial news, or up-to-date information about financial products and regulations.\n' +
+      '\n' +
+      '2. **File Search**: Use this to search through the course materials and reference documents to provide accurate information from the curriculum.\n' +
+      '\n' +
+      '3. **Code Interpreter**: Use this for financial calculations, data analysis, creating visualizations, or any computational tasks related to finance.\n' +
+      '\n' +
+      'Guidelines:\n' +
+      '- Always be professional and educational in your responses\n' +
+      '- When discussing financial topics, provide context and explain concepts clearly\n' +
+      "- Use tools automatically based on the user's query - you don't need to ask permission\n" +
+      '- For calculations, always show your work and explain the methodology\n' +
+      '- When referencing course materials, cite the specific sections or pages if possible\n' +
+      '- If you need current market data or recent information, use web search\n' +
+      '- For complex financial calculations or analysis, use the code interpreter\n' +
+      '\n' +
+      "Remember: You're here to educate and assist, not to provide personalized investment advice. Always encourage users to consult with qualified financial advisors for personal financial decisions.\n"
+  },
+  { role: 'user', content: [ [Object], [Object] ] }
+]
+ GET / 200 in 71ms
+ POST /api/turn_response 200 in 15231ms
+ POST /api/upload-file 200 in 1899ms
+Received messages: [
+  {
+    role: 'developer',
+    content: '\n' +
+      'You are a Financial Co-Pilot, an intelligent assistant designed to help students navigate their financial education and make informed financial decisions.\n' +
+      '\n' +
+      'Your primary goal is to provide clear, accurate, and helpful financial guidance. You have access to several tools:\n' +
+      '\n' +
+      '1. **Web Search**: Use this to find current market data, recent financial news, or up-to-date information about financial products and regulations.\n' +
+      '\n' +
+      '2. **File Search**: Use this to search through the course materials and reference documents to provide accurate information from the curriculum.\n' +
+      '\n' +
+      '3. **Code Interpreter**: Use this for financial calculations, data analysis, creating visualizations, or any computational tasks related to finance.\n' +
+      '\n' +
+      'Guidelines:\n' +
+      '- Always be professional and educational in your responses\n' +
+      '- When discussing financial topics, provide context and explain concepts clearly\n' +
+      "- Use tools automatically based on the user's query - you don't need to ask permission\n" +
+      '- For calculations, always show your work and explain the methodology\n' +
+      '- When referencing course materials, cite the specific sections or pages if possible\n' +
+      '- If you need current market data or recent information, use web search\n' +
+      '- For complex financial calculations or analysis, use the code interpreter\n' +
+      '\n' +
+      "Remember: You're here to educate and assist, not to provide personalized investment advice. Always encourage users to consult with qualified financial advisors for personal financial decisions.\n"
+  },
+  { role: 'user', content: [ [Object], [Object] ] },
+  { role: 'assistant', content: [ [Object] ] },
+  {
+    id: 'msg_6855e0f417a8819fa71fa5eb8b360a4f0429cf2ce7973c33',
+    type: 'message',
+    status: 'completed',
+    content: [ [Object] ],
+    role: 'assistant'
+  },
+  { role: 'user', content: [ [Object], [Object] ] }
+]
+Error in POST handler: Error: 400 Invalid input: Expected file type to be a supported format: .pdf but got .jpg.
+    at async POST (app/api/turn_response/route.ts:48:19)
+  46 |     const selectedModel = MODEL;
+  47 |
+> 48 |     const events = await openai.responses.create({
+     |                   ^
+  49 |       model: selectedModel,
+  50 |       input: messages,
+  51 |       tools, {
+  status: 400,
+  headers: [Object],
+  request_id: 'req_d6122982bfde969edd5b96c189d8b3c3',
+  error: [Object],
+  code: null,
+  param: 'input',
+  type: 'invalid_request_error'
+}
+ POST /api/turn_response 500 in 568ms
+ ✓ Compiled in 456ms (1280 modules)
+ GET / 200 in 59ms
+ ✓ Compiled /favicon.ico in 83ms (744 modules)
+ GET /favicon.ico 200 in 308ms
+ ✓ Compiled in 234ms (1282 modules)
+ GET / 200 in 27ms
+ GET /favicon.ico 200 in 225ms
+ ✓ Compiled in 315ms (1152 modules)
+ GET / 200 in 29ms
+ GET /favicon.ico 200 in 212ms
+ ✓ Compiled in 192ms (1152 modules)
+ GET / 200 in 29ms
+ GET /favicon.ico 200 in 216ms
+ GET / 200 in 135ms
+ ✓ Compiled /api/turn_response in 107ms (742 modules)
+Received messages: [
+  {
+    role: 'developer',
+    content: '\n' +
+      'You are a Financial Co-Pilot, an intelligent assistant designed to help students navigate their financial education and make informed financial decisions.\n' +
+      '\n' +
+      'Your primary goal is to provide clear, accurate, and helpful financial guidance. You have access to several tools:\n' +
+      '\n' +
+      '1. **Web Search**: Use this to find current market data, recent financial news, or up-to-date information about financial products and regulations.\n' +
+      '\n' +
+      '2. **File Search**: Use this to search through the course materials and reference documents to provide accurate information from the curriculum.\n' +
+      '\n' +
+      '3. **Code Interpreter**: Use this for financial calculations, data analysis, creating visualizations, or any computational tasks related to finance.\n' +
+      '\n' +
+      'Guidelines:\n' +
+      '- Always be professional and educational in your responses\n' +
+      '- When discussing financial topics, provide context and explain concepts clearly\n' +
+      "- Use tools automatically based on the user's query - you don't need to ask permission\n" +
+      '- For calculations, always show your work and explain the methodology\n' +
+      '- When referencing course materials, cite the specific sections or pages if possible\n' +
+      '- If you need current market data or recent information, use web search\n' +
+      '- For complex financial calculations or analysis, use the code interpreter\n' +
+      '\n' +
+      "Remember: You're here to educate and assist, not to provide personalized investment advice. Always encourage users to consult with qualified financial advisors for personal financial decisions.\n"
+  },
+  { role: 'user', content: [ [Object], [Object] ] }
+]
+Error in POST handler: Error: 400 Unknown parameter: 'input[1].content[1].source'.
+    at async POST (app/api/turn_response/route.ts:48:19)
+  46 |     const selectedModel = MODEL;
+  47 |
+> 48 |     const events = await openai.responses.create({
+     |                   ^
+  49 |       model: selectedModel,
+  50 |       input: messages,
+  51 |       tools, {
+  status: 400,
+  headers: [Object],
+  request_id: 'req_6cfddb2d6d760590c92d5aa491a8afb3',
+  error: [Object],
+  code: 'unknown_parameter',
+  param: 'input[1].content[1].source',
+  type: 'invalid_request_error'
+}
+ POST /api/turn_response 500 in 3046ms
+ ✓ Compiled in 402ms (1136 modules)
+ GET / 200 in 91ms
+ ✓ Compiled in 88ms (538 modules)
+ GET / 200 in 10ms
+ ✓ Compiled /favicon.ico in 81ms (614 modules)
+ GET /favicon.ico 200 in 333ms
+ GET / 200 in 113ms
+ ✓ Compiled in 528ms (1122 modules)
+ ✓ Compiled in 349ms (1136 modules)
+ GET / 200 in 91ms
+ ✓ Compiled in 103ms (1122 modules)
+ ✓ Compiled in 145ms (1136 modules)
+ GET / 200 in 34ms
+ ✓ Compiled /favicon.ico in 105ms (614 modules)
+ GET /favicon.ico 200 in 358ms
+ ✓ Compiled in 274ms (1152 modules)
+ GET / 200 in 49ms
+ GET /favicon.ico 200 in 214ms
+ GET / 200 in 131ms
+ ✓ Compiled in 409ms (1122 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 152ms
+ ✓ Compiled /api/turn_response in 383ms (740 modules)
+Received messages: [
+  {
+    role: 'developer',
+    content: '\n' +
+      'You are a Financial Co-Pilot, an intelligent assistant designed to help students navigate their financial education and make informed financial decisions.\n' +
+      '\n' +
+      'Your primary goal is to provide clear, accurate, and helpful financial guidance. You have access to several tools:\n' +
+      '\n' +
+      '1. **Web Search**: Use this to find current market data, recent financial news, or up-to-date information about financial products and regulations.\n' +
+      '\n' +
+      '2. **File Search**: Use this to search through the course materials and reference documents to provide accurate information from the curriculum.\n' +
+      '\n' +
+      '3. **Code Interpreter**: Use this for financial calculations, data analysis, creating visualizations, or any computational tasks related to finance.\n' +
+      '\n' +
+      'Guidelines:\n' +
+      '- Always be professional and educational in your responses\n' +
+      '- When discussing financial topics, provide context and explain concepts clearly\n' +
+      "- Use tools automatically based on the user's query - you don't need to ask permission\n" +
+      '- For calculations, always show your work and explain the methodology\n' +
+      '- When referencing course materials, cite the specific sections or pages if possible\n' +
+      '- If you need current market data or recent information, use web search\n' +
+      '- For complex financial calculations or analysis, use the code interpreter\n' +
+      '\n' +
+      "Remember: You're here to educate and assist, not to provide personalized investment advice. Always encourage users to consult with qualified financial advisors for personal financial decisions.\n"
+  },
+  { role: 'user', content: [ [Object], [Object] ] }
+]
+ GET / 200 in 134ms
+ POST /api/turn_response 200 in 13538ms

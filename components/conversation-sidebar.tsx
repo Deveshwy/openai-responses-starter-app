@@ -11,10 +11,25 @@ export default function ConversationSidebar() {
     createNewConversation, 
     switchConversation 
   } = useConversationStore();
+  
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const handleNewChat = () => {
     createNewConversation();
   };
+
+  // Filter conversations based on search query
+  const filteredConversations = React.useMemo(() => {
+    if (!searchQuery.trim()) {
+      return conversations;
+    }
+    
+    const query = searchQuery.toLowerCase();
+    return conversations.filter(conv => 
+      conv.title.toLowerCase().includes(query) ||
+      conv.preview.toLowerCase().includes(query)
+    );
+  }, [conversations, searchQuery]);
 
   // Group conversations by date
   const groupedConversations = React.useMemo(() => {
@@ -35,7 +50,7 @@ export default function ConversationSidebar() {
     const monthAgo = new Date(today);
     monthAgo.setDate(monthAgo.getDate() - 30);
 
-    conversations.forEach(conv => {
+    filteredConversations.forEach(conv => {
       const convDate = new Date(conv.updatedAt);
       if (convDate >= today) {
         groups.Today.push(conv);
@@ -51,7 +66,7 @@ export default function ConversationSidebar() {
     });
 
     return groups;
-  }, [conversations]);
+  }, [filteredConversations]);
 
   return (
     <div className="flex flex-col h-full">
@@ -66,17 +81,23 @@ export default function ConversationSidebar() {
         </button>
       </div>
 
-      {/* Search (Future Feature) */}
+      {/* Search Conversations */}
       <div className="px-4 pb-3">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
           <input
             type="text"
             placeholder="Search conversations..."
-            className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-            disabled
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-colors"
           />
         </div>
+        {searchQuery && (
+          <div className="mt-2 text-xs text-gray-500 px-1">
+            {filteredConversations.length} conversation{filteredConversations.length !== 1 ? 's' : ''} found
+          </div>
+        )}
       </div>
 
       {/* Conversation List */}

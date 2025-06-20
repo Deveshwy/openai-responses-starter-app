@@ -215,18 +215,31 @@ const useConversationStore = create<ConversationState>()(
     }),
     {
       name: "conversation-store",
-      partialize: (state) => ({
-        conversations: state.conversations,
-        activeConversationId: state.activeConversationId,
-      }),
+      partialize: (state) => {
+        // Filter out conversations with images to avoid localStorage quota issues
+        const conversationsWithoutImages = state.conversations.filter(conv => {
+          // Check if conversation has any images
+          const hasImages = conv.chatMessages?.some(msg => 
+            msg.content?.some(item => item.type === "input_image")
+          ) || false;
+          return !hasImages;
+        });
+
+        return {
+          conversations: conversationsWithoutImages,
+          activeConversationId: state.activeConversationId,
+        };
+      },
     }
   )
 );
 
-// Initialize with a default conversation if none exist
-const state = useConversationStore.getState();
-if (state.conversations.length === 0) {
-  state.createNewConversation();
+// Initialize with a default conversation if none exist (client-side only)
+if (typeof window !== 'undefined') {
+  const state = useConversationStore.getState();
+  if (state.conversations.length === 0) {
+    state.createNewConversation();
+  }
 }
 
 export default useConversationStore;

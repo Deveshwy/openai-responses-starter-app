@@ -2,10 +2,38 @@
 import Assistant from "@/components/assistant";
 import ConversationSidebar from "@/components/conversation-sidebar";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useConversationStore from "@/stores/useConversationStore";
 
 export default function Main() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+  const { conversations, createNewConversation } = useConversationStore();
+
+  useEffect(() => {
+    setIsHydrated(true);
+    // Ensure we have at least one conversation after hydration
+    if (conversations.length === 0) {
+      createNewConversation();
+    }
+  }, [conversations.length, createNewConversation]);
+
+  if (!isHydrated) {
+    return (
+      <div className="h-screen w-full flex bg-gray-50">
+        <div className="w-[260px] bg-white border-r border-gray-200 flex-shrink-0">
+          <div className="flex items-center justify-center h-full">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black"></div>
+          </div>
+        </div>
+        <div className="flex-1 bg-white">
+          <div className="flex items-center justify-center h-full">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-gray-50">

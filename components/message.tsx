@@ -40,7 +40,10 @@ const markdownComponents: Components = {
 };
 
 const Message: React.FC<MessageProps> = ({ message }) => {
-  const messageText = message.content[0]?.text as string;
+  const textContent = message.content.find(c => c.type === "input_text" || c.type === "output_text");
+  const fileContent = message.content.filter(c => c.type === "input_file");
+  const imageContent = message.content.filter(c => c.type === "input_image");
+  const messageText = textContent?.text as string;
 
   return (
     <div className="w-full">
@@ -50,9 +53,38 @@ const Message: React.FC<MessageProps> = ({ message }) => {
           <div className="max-w-[75%] md:max-w-[60%]">
             <div className="bg-blue-500 text-white rounded-2xl rounded-tr-lg px-4 py-3 shadow-sm">
               <div className="text-[15px] leading-relaxed">
-                <ReactMarkdown components={markdownComponents}>
-                  {messageText}
-                </ReactMarkdown>
+                {messageText && (
+                  <ReactMarkdown components={markdownComponents}>
+                    {messageText}
+                  </ReactMarkdown>
+                )}
+                
+                {/* Show attached images */}
+                {imageContent.length > 0 && (
+                  <div className="mt-2">
+                    {imageContent.map((image, index) => (
+                      <img
+                        key={index}
+                        src={`data:${(image as any).source?.media_type};base64,${(image as any).source?.data}`}
+                        alt="Uploaded image"
+                        className="max-w-full h-auto rounded-lg mt-1"
+                        style={{ maxHeight: '200px' }}
+                      />
+                    ))}
+                  </div>
+                )}
+                
+                {/* Show attached files */}
+                {fileContent.length > 0 && (
+                  <div className="mt-2 pt-2 border-t border-blue-400">
+                    <div className="text-xs text-blue-100 mb-1">Attached files:</div>
+                    {fileContent.map((file, index) => (
+                      <div key={index} className="text-xs text-blue-100">
+                        📎 File uploaded (ID: {(file as any).file_id?.slice(0, 10)}...)
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
