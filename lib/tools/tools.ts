@@ -1,53 +1,51 @@
 import { toolsList } from "../../config/tools-list";
-import useToolsStore from "@/stores/useToolsStore";
-import { WebSearchConfig } from "@/stores/useToolsStore";
+import { toolsConfig } from "../../config/tools-config";
 
-interface WebSearchTool extends WebSearchConfig {
+interface WebSearchTool {
   type: "web_search";
+  user_location?: {
+    type: "approximate";
+    country?: string;
+    city?: string;
+    region?: string;
+  };
 }
-export const getTools = () => {
-  const {
-    webSearchEnabled,
-    fileSearchEnabled,
-    functionsEnabled,
-    codeInterpreterEnabled,
-    vectorStore,
-    webSearchConfig,
-    mcpEnabled,
-    mcpConfig,
-  } = useToolsStore.getState();
 
+export const getTools = () => {
   const tools = [];
 
-  if (webSearchEnabled) {
+  // Web Search Tool
+  if (toolsConfig.webSearchEnabled) {
     const webSearchTool: WebSearchTool = {
       type: "web_search",
     };
-    if (
-      webSearchConfig.user_location &&
-      (webSearchConfig.user_location.country !== "" ||
-        webSearchConfig.user_location.region !== "" ||
-        webSearchConfig.user_location.city !== "")
-    ) {
-      webSearchTool.user_location = webSearchConfig.user_location;
+    
+    if (toolsConfig.webSearchConfig.user_location) {
+      webSearchTool.user_location = toolsConfig.webSearchConfig.user_location;
     }
 
     tools.push(webSearchTool);
   }
 
-  if (fileSearchEnabled) {
+  // File Search Tool
+  if (toolsConfig.fileSearchEnabled && toolsConfig.vectorStoreId) {
     const fileSearchTool = {
       type: "file_search",
-      vector_store_ids: [vectorStore?.id],
+      vector_store_ids: [toolsConfig.vectorStoreId],
     };
     tools.push(fileSearchTool);
   }
 
-  if (codeInterpreterEnabled) {
-    tools.push({ type: "code_interpreter", container: { type: "auto" } });
+  // Code Interpreter Tool
+  if (toolsConfig.codeInterpreterEnabled) {
+    tools.push({ 
+      type: "code_interpreter", 
+      container: { type: "auto" } 
+    });
   }
 
-  if (functionsEnabled) {
+  // Function Tools
+  if (toolsConfig.functionsEnabled) {
     tools.push(
       ...toolsList.map((tool) => {
         return {
@@ -66,17 +64,18 @@ export const getTools = () => {
     );
   }
 
-  if (mcpEnabled && mcpConfig.server_url && mcpConfig.server_label) {
+  // MCP Tools (if enabled)
+  if (toolsConfig.mcpEnabled && toolsConfig.mcpConfig.server_url && toolsConfig.mcpConfig.server_label) {
     const mcpTool: any = {
       type: "mcp",
-      server_label: mcpConfig.server_label,
-      server_url: mcpConfig.server_url,
+      server_label: toolsConfig.mcpConfig.server_label,
+      server_url: toolsConfig.mcpConfig.server_url,
     };
-    if (mcpConfig.skip_approval) {
+    if (toolsConfig.mcpConfig.skip_approval) {
       mcpTool.require_approval = "never";
     }
-    if (mcpConfig.allowed_tools.trim()) {
-      mcpTool.allowed_tools = mcpConfig.allowed_tools
+    if (toolsConfig.mcpConfig.allowed_tools.trim()) {
+      mcpTool.allowed_tools = toolsConfig.mcpConfig.allowed_tools
         .split(",")
         .map((t) => t.trim())
         .filter((t) => t);
@@ -84,7 +83,7 @@ export const getTools = () => {
     tools.push(mcpTool);
   }
 
-  console.log("tools", tools);
+  console.log("Active tools:", tools);
 
   return tools;
 };
