@@ -405,3 +405,106 @@ Received messages: [
 ]
  GET / 200 in 134ms
  POST /api/turn_response 200 in 13538ms
+ GET / 200 in 66ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 565ms (1126 modules)
+ GET /api/auth/guest?redirectUrl=http%3A%2F%2Flocalhost%3A3000%2F 404 in 689ms
+ ✓ Compiled in 612ms (1136 modules)
+ ✓ Compiled in 163ms (1136 modules)
+ ✓ Compiled in 646ms (1140 modules)
+ ✓ Compiled in 444ms (1140 modules)
+ ✓ Compiled in 160ms (1140 modules)
+ ✓ Compiled in 312ms (1140 modules)
+ ✓ Compiled in 339ms (1126 modules)
+ ✓ Compiled in 118ms (1126 modules)
+ ✓ Compiled in 98ms (1126 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/4.pack.gz_' -> '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/4.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/server-development/5.pack.gz_' -> '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/server-development/5.pack.gz'
+ ✓ Compiled in 158ms (1126 modules)
+ ✓ Compiled in 177ms (1140 modules)
+ ✓ Compiled in 83ms (540 modules)
+ ✓ Compiled in 91ms (540 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 865ms (1126 modules)
+ ✓ Compiled in 112ms (1126 modules)
+ ✓ Compiled in 85ms (540 modules)
+ ✓ Compiled in 83ms (540 modules)
+ ✓ Compiled in 211ms (1126 modules)
+ ✓ Compiled in 100ms (1126 modules)
+ ✓ Compiled in 90ms (540 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 138ms (540 modules)
+ ✓ Compiled in 138ms (540 modules)
+ ✓ Compiled in 129ms (540 modules)
+ ✓ Compiled in 513ms (1145 modules)
+ ✓ Compiled in 276ms (1140 modules)
+ ✓ Compiled in 904ms (1734 modules)
+ ✓ Compiled in 154ms (1734 modules)
+ ✓ Compiled in 169ms (1720 modules)
+ ✓ Compiled in 146ms (1720 modules)
+ ✓ Compiled in 197ms (1720 modules)
+ ✓ Compiled in 137ms (1720 modules)
+ ✓ Compiled in 199ms (1734 modules)
+ ✓ Compiled in 167ms (1734 modules)
+ ✓ Compiled in 289ms (1736 modules)
+ ✓ Compiled in 132ms (1722 modules)
+ ✓ Compiled in 176ms (1722 modules)
+ ⨯ ./lib/assistant.ts
+Error:   [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/Users/deveshdhardubey/openai-responses-starter-app/lib/assistant.ts[0m:559:1]
+ [2m556[0m |       // Handle other events as needed
+ [2m557[0m |     }
+ [2m558[0m |   }, modelPreference);
+ [2m559[0m | };
+     : [35;1m ^[0m
+     `----
+  [31mx[0m Expected '}', got '<eof>'
+     ,-[[36;1;4m/Users/deveshdhardubey/openai-responses-starter-app/lib/assistant.ts[0m:559:1]
+ [2m556[0m |       // Handle other events as needed
+ [2m557[0m |     }
+ [2m558[0m |   }, modelPreference);
+ [2m559[0m | };
+     : [35;1m ^[0m
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./lib/assistant.ts
+./components/assistant.tsx
+./app/page.tsx
+ ✓ Compiled in 221ms (1722 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/1.pack.gz_' -> '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/1.pack.gz'
+ ✓ Compiled in 242ms (1722 modules)
+ ✓ Compiled in 160ms (1722 modules)
+ ✓ Compiled in 336ms (1736 modules)
+ ✓ Compiled in 160ms (1736 modules)
+ ✓ Compiled in 96ms (838 modules)
+ ✓ Compiled in 126ms (1722 modules)
+ ✓ Compiled in 186ms (1722 modules)
+ ✓ Compiled in 127ms (1722 modules)
+ ✓ Compiled in 165ms (1722 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 745ms (1736 modules)
+ ✓ Compiled in 452ms (1736 modules)
+ ✓ Compiled in 184ms (1736 modules)
+ ✓ Compiled in 166ms (1736 modules)
+ ✓ Compiled in 168ms (1736 modules)
+ ✓ Compiled in 319ms (1736 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 340ms (838 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/deveshdhardubey/openai-responses-starter-app/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 155ms (838 modules)
+ ✓ Compiled in 96ms (838 modules)
+ ✓ Compiled in 94ms (838 modules)
+ ✓ Compiled in 108ms (838 modules)
+ ✓ Compiled in 137ms (838 modules)
+ ✓ Compiled in 122ms (838 modules)
+ ✓ Compiled in 97ms (838 modules)
+ ✓ Compiled in 103ms (838 modules)
+ ✓ Compiled in 193ms (838 modules)
+ ✓ Compiled in 94ms (838 modules)
+ ✓ Compiled in 94ms (838 modules)
+ ✓ Compiled in 90ms (838 modules)
+[?25h

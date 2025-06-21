@@ -24,6 +24,9 @@ interface ConversationState {
   // Current conversation data (computed)
   chatMessages: Item[];
   conversationItems: any[];
+  // Streaming control
+  isStreaming: boolean;
+  abortController: AbortController | null;
 
   // Conversation management
   createNewConversation: () => void;
@@ -37,6 +40,11 @@ interface ConversationState {
   addConversationItem: (message: ChatCompletionMessageParam) => void;
   setAssistantLoading: (loading: boolean) => void;
   rawSet: (state: any) => void;
+  
+  // Streaming control
+  setStreaming: (streaming: boolean) => void;
+  setAbortController: (controller: AbortController | null) => void;
+  stopStreaming: () => void;
 
   // Update conversation metadata
   updateConversationTitle: (id: string, title: string) => void;
@@ -75,6 +83,10 @@ const useConversationStore = create<ConversationState>()(
       // Computed properties for current conversation
       chatMessages: [],
       conversationItems: [],
+      
+      // Streaming control
+      isStreaming: false,
+      abortController: null,
 
       getCurrentConversation: () => {
         const state = get();
@@ -196,6 +208,21 @@ const useConversationStore = create<ConversationState>()(
       setAssistantLoading: (loading) => set({ isAssistantLoading: loading }),
       
       rawSet: set,
+
+      // Streaming control methods
+      setStreaming: (streaming) => set({ isStreaming: streaming }),
+      setAbortController: (controller) => set({ abortController: controller }),
+      stopStreaming: () => {
+        const state = get();
+        if (state.abortController) {
+          state.abortController.abort();
+          set({ 
+            abortController: null, 
+            isStreaming: false, 
+            isAssistantLoading: false 
+          });
+        }
+      },
 
       updateConversationTitle: (id, title) => {
         set((state) => ({

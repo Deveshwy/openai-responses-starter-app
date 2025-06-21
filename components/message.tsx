@@ -2,20 +2,22 @@ import { MessageItem } from "@/lib/assistant";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
 
 interface MessageProps {
   message: MessageItem;
 }
 
-// Custom markdown components for better styling
+// Custom markdown components for better styling including tables
 const markdownComponents: Components = {
   p: ({ children }) => <p className="mb-3 last:mb-0 leading-relaxed">{children}</p>,
   h1: ({ children }) => <h1 className="text-xl font-semibold mb-3 text-gray-900">{children}</h1>,
   h2: ({ children }) => <h2 className="text-lg font-semibold mb-2 text-gray-900">{children}</h2>,
   h3: ({ children }) => <h3 className="text-base font-semibold mb-2 text-gray-900">{children}</h3>,
-  ul: ({ children }) => <ul className="list-disc pl-4 mb-3 space-y-1">{children}</ul>,
-  ol: ({ children }) => <ol className="list-decimal pl-4 mb-3 space-y-1">{children}</ol>,
-  li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+  ul: ({ children }) => <ul className="list-disc list-outside ml-6 mb-4 space-y-1">{children}</ul>,
+  ol: ({ children }) => <ol className="list-decimal list-outside ml-6 mb-4 space-y-1">{children}</ol>,
+  li: ({ children }) => <li className="leading-relaxed pl-1">{children}</li>,
   code: ({ children, className }) => {
     const isInline = !className;
     if (isInline) {
@@ -37,6 +39,57 @@ const markdownComponents: Components = {
     </blockquote>
   ),
   strong: ({ children }) => <strong className="font-semibold text-gray-900">{children}</strong>,
+  // Enhanced table support
+  table: ({ children }) => (
+    <div className="overflow-x-auto mb-6 shadow-sm rounded-lg border border-gray-200">
+      <table className="min-w-full divide-y divide-gray-200">
+        {children}
+      </table>
+    </div>
+  ),
+  thead: ({ children }) => (
+    <thead className="bg-gray-50">
+      {children}
+    </thead>
+  ),
+  tbody: ({ children }) => (
+    <tbody className="bg-white divide-y divide-gray-200">
+      {children}
+    </tbody>
+  ),
+  tr: ({ children }) => (
+    <tr className="hover:bg-gray-50 transition-colors duration-150">
+      {children}
+    </tr>
+  ),
+  th: ({ children }) => (
+    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-gray-50 border-b border-gray-200">
+      {children}
+    </th>
+  ),
+  td: ({ children }) => (
+    <td className="px-6 py-4 text-sm text-gray-900 border-b border-gray-100">
+      <div className="break-words">
+        {children}
+      </div>
+    </td>
+  ),
+  // Enhanced code blocks with syntax highlighting
+  pre: ({ children }) => (
+    <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm mb-4">
+      {children}
+    </pre>
+  ),
+  // Task lists
+  input: ({ checked, ...props }) => (
+    <input
+      type="checkbox"
+      checked={checked}
+      className="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+      readOnly
+      {...props}
+    />
+  ),
 };
 
 const Message: React.FC<MessageProps> = ({ message }) => {
@@ -54,7 +107,11 @@ const Message: React.FC<MessageProps> = ({ message }) => {
             <div className="bg-blue-500 text-white rounded-2xl rounded-tr-lg px-4 py-3 shadow-sm">
               <div className="text-[15px] leading-relaxed">
                 {messageText && (
-                  <ReactMarkdown components={markdownComponents}>
+                  <ReactMarkdown 
+                    components={markdownComponents}
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeHighlight]}
+                  >
                     {messageText}
                   </ReactMarkdown>
                 )}
@@ -101,7 +158,11 @@ const Message: React.FC<MessageProps> = ({ message }) => {
             {/* Message bubble */}
             <div className="bg-gray-100 border border-gray-200 text-gray-900 rounded-2xl rounded-tl-lg px-4 py-3 shadow-sm">
               <div className="text-[15px] leading-relaxed">
-                <ReactMarkdown components={markdownComponents}>
+                <ReactMarkdown 
+                  components={markdownComponents}
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeHighlight]}
+                >
                   {messageText}
                 </ReactMarkdown>
                 

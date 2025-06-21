@@ -8,7 +8,7 @@ export default function Assistant() {
   const { chatMessages, addConversationItem, addChatMessage, setAssistantLoading } =
     useConversationStore();
 
-  const handleSendMessage = async (message: string, files?: any[]) => {
+  const handleSendMessage = async (message: string, files?: any[], modelPreference?: 'fast' | 'reasoning') => {
     if (!message.trim() && (!files || files.length === 0)) return;
 
     // Create content array that includes text and files
@@ -56,7 +56,7 @@ export default function Assistant() {
       setAssistantLoading(true);
       addConversationItem(userMessage);
       addChatMessage(userItem);
-      await processMessages();
+      await processMessages(modelPreference);
     } catch (error) {
       console.error("Error processing message:", error);
     }
@@ -73,7 +73,7 @@ export default function Assistant() {
     } as any;
     try {
       addConversationItem(approvalItem);
-      await processMessages();
+      await processMessages(modelPreference);
     } catch (error) {
       console.error("Error sending approval response:", error);
     }

@@ -9,11 +9,11 @@ import ToolStatusIndicator from "./tool-status-indicator";
 import { Item, McpApprovalRequestItem, ToolCallItem } from "@/lib/assistant";
 import LoadingMessage from "./loading-message";
 import useConversationStore from "@/stores/useConversationStore";
-import { Paperclip, X } from "lucide-react";
+import { Paperclip, X, ArrowUp, Zap, Search, Globe, Square } from "lucide-react";
 
 interface ChatProps {
   items: Item[];
-  onSendMessage: (message: string, files?: any[]) => void;
+  onSendMessage: (message: string, files?: any[], modelPreference?: 'fast' | 'reasoning') => void;
   onApprovalResponse: (approve: boolean, id: string) => void;
 }
 
@@ -24,14 +24,23 @@ const Chat: React.FC<ChatProps> = ({
 }) => {
   const itemsEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [inputMessageText, setinputMessageText] = useState<string>("");
   const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
   // This state is used to provide better user experience for non-English IMEs such as Japanese
   const [isComposing, setIsComposing] = useState(false);
-  const { isAssistantLoading } = useConversationStore();
+  const [useReasoningModel, setUseReasoningModel] = useState(false);
+  const [webSearchEnabled, setWebSearchEnabled] = useState(true);
+  const { isAssistantLoading, isStreaming, stopStreaming } = useConversationStore();
 
   const scrollToBottom = () => {
     itemsEndRef.current?.scrollIntoView({ behavior: "instant" });
+  };
+
+  // Auto-resize textarea
+  const autoResize = (textarea: HTMLTextAreaElement) => {
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
   };
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,11 +115,20 @@ const Chat: React.FC<ChatProps> = ({
           // Show a brief notification that image conversations aren't saved
           console.log("Note: Conversations with images are not saved to prevent storage issues");
         }
-        onSendMessage(messageContent || "Please analyze the attached files.", uploadedFiles);
+        onSendMessage(
+          messageContent || "Please analyze the attached files.", 
+          uploadedFiles,
+          useReasoningModel ? 'reasoning' : 'fast'
+        );
       }
       
       setinputMessageText("");
       setAttachedFiles([]);
+      
+      // Reset textarea height
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+      }
     } catch (error) {
       console.error("Error sending message:", error);
       alert("Failed to upload files. Please try again.");
@@ -130,6 +148,13 @@ const Chat: React.FC<ChatProps> = ({
   useEffect(() => {
     scrollToBottom();
   }, [items]);
+
+  useEffect(() => {
+    // Auto-resize on value change
+    if (textareaRef.current) {
+      autoResize(textareaRef.current);
+    }
+  }, [inputMessageText]);
 
   return (
     <div className="flex flex-col h-full">
@@ -208,17 +233,8 @@ const Chat: React.FC<ChatProps> = ({
             </div>
           )}
           
-          {/* Input Row */}
-          <div className="flex items-end gap-2">
-            {/* File Upload Button */}
-            <button
-              onClick={handleAttachmentClick}
-              className="flex-shrink-0 p-3 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-colors"
-              title="Attach file"
-            >
-              <Paperclip size={20} />
-            </button>
-            
+          {/* Input Container */}
+          <div className="relative">
             {/* Hidden File Input */}
             <input
               ref={fileInputRef}
@@ -229,46 +245,90 @@ const Chat: React.FC<ChatProps> = ({
               className="hidden"
             />
             
-            {/* Text Input */}
-            <div className="flex-1">
-              <textarea
-                id="prompt-textarea"
-                tabIndex={0}
-                dir="auto"
-                rows={1}
-                placeholder="Message..."
-                className="w-full resize-none border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                value={inputMessageText}
-                onChange={(e) => setinputMessageText(e.target.value)}
-                onKeyDown={handleKeyDown}
-                onCompositionStart={() => setIsComposing(true)}
-                onCompositionEnd={() => setIsComposing(false)}
-              />
-            </div>
-            
-            {/* Send Button */}
-            <button
-              disabled={!inputMessageText.trim() && attachedFiles.length === 0}
-              data-testid="send-button"
-              className="flex-shrink-0 p-3 bg-black text-white rounded-xl hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-              onClick={handleSend}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="none"
-                viewBox="0 0 32 32"
-                className="transform rotate-45"
-              >
-                <path
-                  fill="currentColor"
-                  fillRule="evenodd"
-                  d="M15.192 8.906a1.143 1.143 0 0 1 1.616 0l5.143 5.143a1.143 1.143 0 0 1-1.616 1.616l-3.192-3.192v9.813a1.143 1.143 0 0 1-2.286 0v-9.813l-3.192 3.192a1.143 1.143 0 1 1-1.616-1.616z"
-                  clipRule="evenodd"
+            {/* Main Input Field with Controls */}
+            <div className="relative border border-gray-200 rounded-2xl bg-white focus-within:ring-2 focus-within:ring-black focus-within:border-transparent">
+              <div className="flex items-center px-4 py-3 gap-3">
+                {/* File Upload Icon */}
+                <button
+                  onClick={handleAttachmentClick}
+                  className="flex-shrink-0 text-gray-500 hover:text-gray-700 transition-colors"
+                  title="Attach file"
+                >
+                  <Paperclip size={20} />
+                </button>
+                
+                {/* Text Input */}
+                <textarea
+                  ref={textareaRef}
+                  id="prompt-textarea"
+                  tabIndex={0}
+                  dir="auto"
+                  rows={1}
+                  placeholder="Ask about investments, financial planning, tax strategies..."
+                  className="flex-1 resize-none bg-transparent border-none outline-none placeholder-gray-400 min-h-[24px] max-h-[200px] overflow-y-auto"
+                  value={inputMessageText}
+                  onChange={(e) => {
+                    setinputMessageText(e.target.value);
+                    autoResize(e.target);
+                  }}
+                  onKeyDown={handleKeyDown}
+                  onCompositionStart={() => setIsComposing(true)}
+                  onCompositionEnd={() => setIsComposing(false)}
+                  style={{ height: 'auto' }}
                 />
-              </svg>
-            </button>
+                
+                {/* Controls Group */}
+                <div className="flex items-center gap-2">
+                  {/* Fast/Reasoning Model Toggle */}
+                  <button
+                    onClick={() => setUseReasoningModel(!useReasoningModel)}
+                    className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium transition-colors ${
+                      useReasoningModel 
+                        ? 'bg-blue-100 text-blue-700 hover:bg-blue-200' 
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                    title={useReasoningModel ? "Using reasoning model" : "Using fast model"}
+                  >
+                    <Zap size={14} />
+                    {useReasoningModel ? 'Thinking' : 'Fast'}
+                  </button>
+                  
+                  {/* Web Search Toggle */}
+                  <button
+                    onClick={() => setWebSearchEnabled(!webSearchEnabled)}
+                    className={`p-1.5 rounded-lg transition-colors ${
+                      webSearchEnabled 
+                        ? 'bg-green-100 text-green-700 hover:bg-green-200' 
+                        : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
+                    }`}
+                    title={webSearchEnabled ? "Web search enabled" : "Web search disabled"}
+                  >
+                    <Globe size={16} />
+                  </button>
+                  
+                  {/* Send/Stop Button */}
+                  {isStreaming ? (
+                    <button
+                      data-testid="stop-button"
+                      className="flex items-center justify-center w-8 h-8 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                      onClick={stopStreaming}
+                      title="Stop generation"
+                    >
+                      <Square size={14} />
+                    </button>
+                  ) : (
+                    <button
+                      disabled={!inputMessageText.trim() && attachedFiles.length === 0}
+                      data-testid="send-button"
+                      className="flex items-center justify-center w-8 h-8 bg-black text-white rounded-full hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                      onClick={handleSend}
+                    >
+                      <ArrowUp size={16} />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

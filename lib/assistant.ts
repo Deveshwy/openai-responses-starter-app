@@ -75,7 +75,9 @@ export type Item =
 export const handleTurn = async (
   messages: any[],
   tools: any[],
-  onMessage: (data: any) => void
+  onMessage: (data: any) => void,
+  modelPreference?: 'fast' | 'reasoning',
+  abortController?: AbortController
 ) => {
   try {
     // Get response from the API (defined in app/api/turn_response/route.ts)
@@ -85,7 +87,9 @@ export const handleTurn = async (
       body: JSON.stringify({
         messages: messages,
         tools: tools,
+        modelPreference: modelPreference,
       }),
+      signal: abortController?.signal,
     });
 
     if (!response.ok) {
@@ -130,18 +134,29 @@ export const handleTurn = async (
       }
     }
   } catch (error) {
-    console.error("Error handling turn:", error);
+    if (error.name === 'AbortError') {
+      console.log('Request was aborted by user');
+    } else {
+      console.error("Error handling turn:", error);
+    }
   }
 };
 
-export const processMessages = async () => {
+export const processMessages = async (modelPreference?: 'fast' | 'reasoning') => {
   const {
     chatMessages,
     conversationItems,
     setChatMessages,
     setConversationItems,
     setAssistantLoading,
+    setStreaming,
+    setAbortController,
   } = useConversationStore.getState();
+
+  // Create abort controller for this request
+  const abortController = new AbortController();
+  setAbortController(abortController);
+  setStreaming(true);
 
   const tools = getTools();
   const allConversationItems = [
@@ -158,7 +173,8 @@ export const processMessages = async () => {
   // For streaming MCP tool call arguments
   let mcpArguments = "";
 
-  await handleTurn(allConversationItems, tools, async ({ event, data }) => {
+  try {
+    await handleTurn(allConversationItems, tools, async ({ event, data }) => {
     switch (event) {
       case "response.output_text.delta":
       case "response.output_text.annotation.added": {
@@ -543,5 +559,19 @@ export const processMessages = async () => {
 
       // Handle other events as needed
     }
-  });
+    }, modelPreference, abortController);
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log('Request was aborted by user');
+      // Don't log this as an error since it's expected behavior
+    } else {
+      console.error("Error in processMessages:", error);
+    }
+  } finally {
+    // Clean up streaming state
+    const { setStreaming, setAbortController, setAssistantLoading } = useConversationStore.getState();
+    setStreaming(false);
+    setAbortController(null);
+    setAssistantLoading(false);
+  }
 };
