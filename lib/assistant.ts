@@ -76,7 +76,7 @@ export const handleTurn = async (
   messages: any[],
   tools: any[],
   onMessage: (data: any) => void,
-  modelPreference?: 'fast' | 'reasoning',
+  modelPreference?: 'fast' | 'reasoning' | 'search',
   abortController?: AbortController
 ) => {
   try {
@@ -142,7 +142,9 @@ export const handleTurn = async (
   }
 };
 
-export const processMessages = async (modelPreference?: 'fast' | 'reasoning') => {
+export const processMessages = async (
+  modelPreference?: 'fast' | 'reasoning' | 'search'
+) => {
   const {
     chatMessages,
     conversationItems,
