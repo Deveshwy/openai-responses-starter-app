@@ -1,4 +1,3 @@
-import { MODEL } from "@/config/constants";
 import { modelConfig } from "@/config/tools-config";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
@@ -52,6 +51,9 @@ export async function POST(request: Request) {
     } else if (modelPreference === 'fast') {
       selectedModel = 'gpt-4.1'; // Force GPT-4.1 when fast toggle is on
       console.log("Using GPT-4.1 model (fast toggle enabled)");
+    } else if (modelPreference === 'search') {
+      selectedModel = 'sonar-small-online'; // Use Perplexity Sonar when web search toggle is on
+      console.log("Using Perplexity Sonar model (web search enabled)");
     } else {
       // Automatic selection when no toggle preference is set
       selectedModel = selectModel(messages);

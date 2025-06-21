@@ -5,10 +5,18 @@ import useConversationStore from "@/stores/useConversationStore";
 import { Item, processMessages } from "@/lib/assistant";
 
 export default function Assistant() {
-  const { chatMessages, addConversationItem, addChatMessage, setAssistantLoading } =
-    useConversationStore();
+  const {
+    chatMessages,
+    addConversationItem,
+    addChatMessage,
+    setAssistantLoading,
+  } = useConversationStore();
 
-  const handleSendMessage = async (message: string, files?: any[], modelPreference?: 'fast' | 'reasoning') => {
+  const handleSendMessage = async (
+    message: string,
+    files?: any[],
+    modelPreference?: 'fast' | 'reasoning' | 'search'
+  ) => {
     if (!message.trim() && (!files || files.length === 0)) return;
 
     // Create content array that includes text and files
@@ -73,7 +81,7 @@ export default function Assistant() {
     } as any;
     try {
       addConversationItem(approvalItem);
-      await processMessages(modelPreference);
+      await processMessages();
     } catch (error) {
       console.error("Error sending approval response:", error);
     }

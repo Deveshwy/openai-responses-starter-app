@@ -9,11 +9,15 @@ import ToolStatusIndicator from "./tool-status-indicator";
 import { Item, McpApprovalRequestItem, ToolCallItem } from "@/lib/assistant";
 import LoadingMessage from "./loading-message";
 import useConversationStore from "@/stores/useConversationStore";
-import { Paperclip, X, ArrowUp, Zap, Search, Globe, Square } from "lucide-react";
+import { Paperclip, X, ArrowUp, Zap, Globe, Square } from "lucide-react";
 
 interface ChatProps {
   items: Item[];
-  onSendMessage: (message: string, files?: any[], modelPreference?: 'fast' | 'reasoning') => void;
+  onSendMessage: (
+    message: string,
+    files?: any[],
+    modelPreference?: 'fast' | 'reasoning' | 'search'
+  ) => void;
   onApprovalResponse: (approve: boolean, id: string) => void;
 }
 
@@ -60,7 +64,7 @@ const Chat: React.FC<ChatProps> = ({
     if (!inputMessageText.trim() && attachedFiles.length === 0) return;
     
     try {
-      let messageContent = inputMessageText.trim();
+      const messageContent = inputMessageText.trim();
       let uploadedFiles = [];
 
       // Process files if any are attached
@@ -116,9 +120,13 @@ const Chat: React.FC<ChatProps> = ({
           console.log("Note: Conversations with images are not saved to prevent storage issues");
         }
         onSendMessage(
-          messageContent || "Please analyze the attached files.", 
+          messageContent || "Please analyze the attached files.",
           uploadedFiles,
-          useReasoningModel ? 'reasoning' : 'fast'
+          webSearchEnabled
+            ? 'search'
+            : useReasoningModel
+            ? 'reasoning'
+            : 'fast'
         );
       }
       
@@ -133,7 +141,7 @@ const Chat: React.FC<ChatProps> = ({
       console.error("Error sending message:", error);
       alert("Failed to upload files. Please try again.");
     }
-  }, [inputMessageText, attachedFiles, onSendMessage]);
+  }, [inputMessageText, attachedFiles, onSendMessage, useReasoningModel, webSearchEnabled]);
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
